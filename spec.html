@@ -46136,10 +46136,10 @@ THH:mm:ss.sss
           1. Let _runningContext_ be the running execution context.
           1. [fence-effects="user-code"] Set the code evaluation state of _asyncContext_ such that when evaluation is resumed for that execution context the following steps will be performed:
             1. If _asyncBody_ is a Parse Node, then
-              1. Let _result_ be Evaluation of _asyncBody_.
+              1. Let _result_ be Completion(Evaluation of _asyncBody_).
             1. Else,
               1. Assert: _asyncBody_ is an Abstract Closure with no parameters.
-              1. Let _result_ be _asyncBody_().
+              1. Let _result_ be Completion(_asyncBody_()).
               1. If _result_ is a normal completion, then
                 1. Set _result_ to Completion Record { [[Type]]: ~return~, [[Value]]: _result_.[[Value]], [[Target]]: ~empty~ }.
             1. Assert: If we return here, the async function either threw an exception or performed an implicit or explicit return; all awaiting is done.
