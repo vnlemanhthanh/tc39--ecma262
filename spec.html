@@ -42338,13 +42338,12 @@ THH:mm:ss.sss
               1. Set _index_ to _index_ + 1.
           1. Else,
             1. Let _keysIter_ be ? GetIteratorFromMethod(_otherRec_.[[Set]], _otherRec_.[[Keys]]).
-            1. Let _next_ be *true*.
-            1. Repeat, while _next_ is not *false*,
-              1. Set _next_ to ? IteratorStep(_keysIter_).
-              1. If _next_ is not *false*, then
-                1. Let _nextValue_ be ? IteratorValue(_next_).
-                1. If _nextValue_ is *-0*<sub>𝔽</sub>, set _nextValue_ to *+0*<sub>𝔽</sub>.
-                1. Let _valueIndex_ be SetDataIndex(_resultSetData_, _nextValue_).
+            1. Let _next_ be ~not-started~.
+            1. Repeat, while _next_ is not ~done~,
+              1. Set _next_ to ? IteratorStepValue(_keysIter_).
+              1. If _next_ is not ~done~, then
+                1. If _next_ is *-0*<sub>𝔽</sub>, set _next_ to *+0*<sub>𝔽</sub>.
+                1. Let _valueIndex_ be SetDataIndex(_resultSetData_, _next_).
                 1. If _valueIndex_ is not ~not-found~, then
                   1. Set _resultSetData_[_valueIndex_] to ~empty~.
           1. Let _result_ be OrdinaryObjectCreate(%Set.prototype%, « [[SetData]] »).
@@ -42431,17 +42430,16 @@ THH:mm:ss.sss
                 1. Set _thisSize_ to the number of elements in _O_.[[SetData]].
           1. Else,
             1. Let _keysIter_ be ? GetIteratorFromMethod(_otherRec_.[[Set]], _otherRec_.[[Keys]]).
-            1. Let _next_ be *true*.
-            1. Repeat, while _next_ is not *false*,
-              1. Set _next_ to ? IteratorStep(_keysIter_).
-              1. If _next_ is not *false*, then
-                1. Let _nextValue_ be ? IteratorValue(_next_).
-                1. If _nextValue_ is *-0*<sub>𝔽</sub>, set _nextValue_ to *+0*<sub>𝔽</sub>.
+            1. Let _next_ be ~not-started~.
+            1. Repeat, while _next_ is not ~done~,
+              1. Set _next_ to ? IteratorStepValue(_keysIter_).
+              1. If _next_ is not ~done~, then
+                1. If _next_ is *-0*<sub>𝔽</sub>, set _next_ to *+0*<sub>𝔽</sub>.
                 1. NOTE: Because _other_ is an arbitrary object, it is possible for its *"keys"* iterator to produce the same value more than once.
-                1. Let _alreadyInResult_ be SetDataHas(_resultSetData_, _nextValue_).
-                1. Let _inThis_ be SetDataHas(_O_.[[SetData]], _nextValue_).
+                1. Let _alreadyInResult_ be SetDataHas(_resultSetData_, _next_).
+                1. Let _inThis_ be SetDataHas(_O_.[[SetData]], _next_).
                 1. If _alreadyInResult_ is *false* and _inThis_ is *true*, then
-                  1. Append _nextValue_ to _resultSetData_.
+                  1. Append _next_ to _resultSetData_.
           1. Let _result_ be OrdinaryObjectCreate(%Set.prototype%, « [[SetData]] »).
           1. Set _result_.[[SetData]] to _resultSetData_.
           1. Return _result_.
@@ -42468,12 +42466,11 @@ THH:mm:ss.sss
                 1. Set _thisSize_ to the number of elements in _O_.[[SetData]].
           1. Else,
             1. Let _keysIter_ be ? GetIteratorFromMethod(_otherRec_.[[Set]], _otherRec_.[[Keys]]).
-            1. Let _next_ be *true*.
-            1. Repeat, while _next_ is not *false*,
-              1. Set _next_ to ? IteratorStep(_keysIter_).
-              1. If _next_ is not *false*, then
-                1. Let _nextValue_ be ? IteratorValue(_next_).
-                1. If SetDataHas(_O_.[[SetData]], _nextValue_) is *true*, then
+            1. Let _next_ be ~not-started~.
+            1. Repeat, while _next_ is not ~done~,
+              1. Set _next_ to ? IteratorStepValue(_keysIter_).
+              1. If _next_ is not ~done~, then
+                1. If SetDataHas(_O_.[[SetData]], _next_) is *true*, then
                   1. Perform ? IteratorClose(_keysIter_, NormalCompletion(~unused~)).
                   1. Return *false*.
           1. Return *true*.
@@ -42511,12 +42508,11 @@ THH:mm:ss.sss
           1. Let _otherRec_ be ? GetSetRecord(_other_).
           1. If SetDataSize(_O_.[[SetData]]) &lt; _otherRec_.[[Size]], return *false*.
           1. Let _keysIter_ be ? GetIteratorFromMethod(_otherRec_.[[Set]], _otherRec_.[[Keys]]).
-          1. Let _next_ be *true*.
-          1. Repeat, while _next_ is not *false*,
-            1. Set _next_ to ? IteratorStep(_keysIter_).
-            1. If _next_ is not *false*, then
-              1. Let _nextValue_ be ? IteratorValue(_next_).
-              1. If SetDataHas(_O_.[[SetData]], _nextValue_) is *false*, then
+          1. Let _next_ be ~not-started~.
+          1. Repeat, while _next_ is not ~done~,
+            1. Set _next_ to ? IteratorStepValue(_keysIter_).
+            1. If _next_ is not ~done~, then
+              1. If SetDataHas(_O_.[[SetData]], _next_) is *false*, then
                 1. Perform ? IteratorClose(_keysIter_, NormalCompletion(~unused~)).
                 1. Return *false*.
           1. Return *true*.
@@ -42551,17 +42547,16 @@ THH:mm:ss.sss
           1. Let _otherRec_ be ? GetSetRecord(_other_).
           1. Let _keysIter_ be ? GetIteratorFromMethod(_otherRec_.[[Set]], _otherRec_.[[Keys]]).
           1. Let _resultSetData_ be a copy of _O_.[[SetData]].
-          1. Let _next_ be *true*.
-          1. Repeat, while _next_ is not *false*,
-            1. Set _next_ to ? IteratorStep(_keysIter_).
-            1. If _next_ is not *false*, then
-              1. Let _nextValue_ be ? IteratorValue(_next_).
-              1. If _nextValue_ is *-0*<sub>𝔽</sub>, set _nextValue_ to *+0*<sub>𝔽</sub>.
-              1. Let _resultIndex_ be SetDataIndex(_resultSetData_, _nextValue_).
-              1. If SetDataHas(_O_.[[SetData]], _nextValue_) is *true*, then
+          1. Let _next_ be ~not-started~.
+          1. Repeat, while _next_ is not ~done~,
+            1. Set _next_ to ? IteratorStepValue(_keysIter_).
+            1. If _next_ is not ~done~, then
+              1. If _next_ is *-0*<sub>𝔽</sub>, set _next_ to *+0*<sub>𝔽</sub>.
+              1. Let _resultIndex_ be SetDataIndex(_resultSetData_, _next_).
+              1. If SetDataHas(_O_.[[SetData]], _next_) is *true*, then
                 1. If _resultIndex_ is not ~not-found~, set _resultSetData_[_resultIndex_] to ~empty~.
               1. Else,
-                1. If _resultIndex_ is ~not-found~, append _nextValue_ to _resultSetData_.
+                1. If _resultIndex_ is ~not-found~, append _next_ to _resultSetData_.
           1. Let _result_ be OrdinaryObjectCreate(%Set.prototype%, « [[SetData]] »).
           1. Set _result_.[[SetData]] to _resultSetData_.
           1. Return _result_.
@@ -42577,14 +42572,13 @@ THH:mm:ss.sss
           1. Let _otherRec_ be ? GetSetRecord(_other_).
           1. Let _keysIter_ be ? GetIteratorFromMethod(_otherRec_.[[Set]], _otherRec_.[[Keys]]).
           1. Let _resultSetData_ be a copy of _O_.[[SetData]].
-          1. Let _next_ be *true*.
-          1. Repeat, while _next_ is not *false*,
-            1. Set _next_ to ? IteratorStep(_keysIter_).
-            1. If _next_ is not *false*, then
-              1. Let _nextValue_ be ? IteratorValue(_next_).
-              1. If _nextValue_ is *-0*<sub>𝔽</sub>, set _nextValue_ to *+0*<sub>𝔽</sub>.
-              1. If SetDataHas(_resultSetData_, _nextValue_) is *false*, then
-                1. Append _nextValue_ to _resultSetData_.
+          1. Let _next_ be ~not-started~.
+          1. Repeat, while _next_ is not ~done~,
+            1. Set _next_ to ? IteratorStepValue(_keysIter_).
+            1. If _next_ is not ~done~, then
+              1. If _next_ is *-0*<sub>𝔽</sub>, set _next_ to *+0*<sub>𝔽</sub>.
+              1. If SetDataHas(_resultSetData_, _next_) is *false*, then
+                1. Append _next_ to _resultSetData_.
           1. Let _result_ be OrdinaryObjectCreate(%Set.prototype%, « [[SetData]] »).
           1. Set _result_.[[SetData]] to _resultSetData_.
           1. Return _result_.
