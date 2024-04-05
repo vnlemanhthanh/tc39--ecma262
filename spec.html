@@ -6941,10 +6941,16 @@
       </dl>
       <emu-alg>
         1. If _value_ is not present, then
-          1. Let _result_ be ? Call(_iteratorRecord_.[[NextMethod]], _iteratorRecord_.[[Iterator]]).
+          1. Let _result_ be Completion(Call(_iteratorRecord_.[[NextMethod]], _iteratorRecord_.[[Iterator]])).
         1. Else,
-          1. Let _result_ be ? Call(_iteratorRecord_.[[NextMethod]], _iteratorRecord_.[[Iterator]], « _value_ »).
-        1. If _result_ is not an Object, throw a *TypeError* exception.
+          1. Let _result_ be Completion(Call(_iteratorRecord_.[[NextMethod]], _iteratorRecord_.[[Iterator]], « _value_ »)).
+        1. If _result_ is a throw completion, then
+          1. Set _iteratorRecord_.[[Done]] to *true*.
+          1. Return ? _result_.
+        1. Set _result_ to ! _result_.
+        1. If _result_ is not an Object, then
+          1. Set _iteratorRecord_.[[Done]] to *true*.
+          1. Throw a *TypeError* exception.
         1. Return _result_.
       </emu-alg>
     </emu-clause>
@@ -6986,11 +6992,7 @@
         <dd>It requests the next value from _iteratorRecord_.[[Iterator]] by calling _iteratorRecord_.[[NextMethod]] and returns either ~done~ indicating that the iterator has reached its end or the IteratorResult object if a next value is available.</dd>
       </dl>
       <emu-alg>
-        1. Let _result_ be Completion(IteratorNext(_iteratorRecord_)).
-        1. If _result_ is a throw completion, then
-          1. Set _iteratorRecord_.[[Done]] to *true*.
-          1. Return ? _result_.
-        1. Set _result_ to ! _result_.
+        1. Let _result_ be ? IteratorNext(_iteratorRecord_).
         1. Let _done_ be Completion(IteratorComplete(_result_)).
         1. If _done_ is a throw completion, then
           1. Set _iteratorRecord_.[[Done]] to *true*.
