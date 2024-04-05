@@ -42537,10 +42537,8 @@ THH:mm:ss.sss
         <emu-alg>
           1. Let _S_ be the *this* value.
           1. Perform ? RequireInternalSlot(_S_, [[SetData]]).
-          1. Let _count_ be 0.
-          1. For each element _e_ of _S_.[[SetData]], do
-            1. If _e_ is not ~empty~, set _count_ to _count_ + 1.
-          1. Return 𝔽(_count_).
+          1. Let _size_ be SetDataSize(_S_.[[SetData]]).
+          1. Return 𝔽(_size_).
         </emu-alg>
       </emu-clause>
 
